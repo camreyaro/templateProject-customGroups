@@ -14,7 +14,7 @@ before_script:
 
 script:
   - npm start  &
-  - npm test
+  - grunt test && npm test
 
 after_success:
   - REGEXP="release\s[0-9]+\.[0-9]+\.[0-9]+";
