@@ -9,10 +9,10 @@ services:
   - docker
 
 before_script:
-  - yarn add grunt-cli && yarn add grunt-mocha-istanbul
+  - yarn add grunt-cli && yarn add grunt-mocha-istanbul && npm start
 
 script:
-  - grunt test
+  - npm test
 
 after_success:
   - REGEXP="release\s[0-9]+\.[0-9]+\.[0-9]+";
