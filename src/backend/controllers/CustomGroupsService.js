@@ -16,10 +16,10 @@ exports.getCustomGroups = function(args, res, next) {
   logger.info("Get Groups");
   mongo.getCustomGroups(function(err, data) {
     if (err) {
-      logger.info(err);
+    //  logger.info(err);
       res.sendStatus(500); // internal server error
     } else {
-      logger.info(data);
+     // logger.info(data);
       logger.info("Get!");
       res.send(data);
     }
@@ -44,7 +44,7 @@ exports.getCustomGroup = function(args, res, next) {
   } else {
     mongo.getCustomGroup(groupName, year, function(err, data) {
       if (err) {
-        logger.info(err);
+           // logger.info(err);
         res.sendStatus(500); // internal server error
       } else if (data) {
         logger.info("Get group!");
@@ -75,7 +75,7 @@ exports.getCustomGroupByMetadata = function(args, res, next) {
   } else {
     mongo.getCustomGroupByMetadata(metaDataField, value, function(err, data) {
       if (err) {
-        logger.info(err);
+            //logger.info(err);
         res.sendStatus(500); // internal server error
       } else if (data) {
         logger.info("Get groups!");
