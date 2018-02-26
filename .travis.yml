@@ -14,7 +14,7 @@ before_script:
 
 script:
   - npm start  &
-  - sleep 1
+  - sleep 10
   - npm test
 
 after_success:
