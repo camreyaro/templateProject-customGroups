@@ -13,7 +13,8 @@ before_script:
   - yarn add grunt-cli && yarn add grunt-mocha-istanbul 
 
 script:
-  - npm start  && npm test
+  - npm start  &
+  - npm test
 
 after_success:
   - REGEXP="release\s[0-9]+\.[0-9]+\.[0-9]+";
