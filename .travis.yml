@@ -9,7 +9,7 @@ services:
   - docker
 
 before_script:
-  - yarn add grunt-cli && yarn add grunt-mocha-istanbul && npm start
+  - yarn add grunt-cli && yarn add grunt-mocha-istanbul && npm start  
 
 script:
   - npm test
