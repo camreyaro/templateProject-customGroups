@@ -16,7 +16,8 @@ var config = require("../config/config");
 
 var logger = require("../config/logConfig");
 
-var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/sabius";
+//var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/sabius";
+  var uri = "mongodb://camreyaro:6mh4vk6k@ds149138.mlab.com:49138/customgroups";
 //var uri ="mongodb://" + "localhost" + ":" + "27017" + "/sabius";
 mongoose.Promise = global.Promise;
 
