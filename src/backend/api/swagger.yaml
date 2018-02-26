@@ -1,0 +1,187 @@
+---
+swagger: "2.0"
+info:
+  description: >-
+    <div class="postman-run-button"
+    data-postman-action="collection/import"
+    data-postman-var-1="c3d1fba63cf14cdfeb06"></div>
+    <script type="text/javascript">
+      (function (p,o,s,t,m,a,n) {
+        !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+        !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+          (n = o.createElement("script")),
+          (n.id = s+t), (n.async = 1), (n.src = m), n
+        ));
+      }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+      </script>
+  version: "1.0.0"
+  title: "Swagger custom-groups.sabius-alpha"
+  termsOfService: "www.isa.us.es"
+  contact:
+    name: "ISA Research Group"
+    url: "www.isa.us.es"
+    email: "isagroup.us@gmail.com"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+host: "localhost:8080"
+basePath: "/api/v1"
+schemes:
+- "http"
+consumes:
+- "application/json"
+produces:
+- "application/json"
+paths:
+  /custom-groups:
+    get:
+      tags:
+      - "custom-groups"
+      description: "Returns all custom groups"
+      operationId: "getCustomGroups"
+      parameters: []
+      responses:
+        200:
+          description: "Custom Group response"
+          schema:
+            type: "array"
+            title: "CustomGroups"
+            items:
+              $ref: "#/definitions/CustomGroups"
+        500:
+          description: "Internal Server Error"
+      x-swagger-router-controller: "CustomGroups"
+    post:
+      tags:
+      - "custom-groups"
+      description: "Insert a new custom group"
+      operationId: "insertCustomGroup"
+      parameters:
+      - name: "customGroup"
+        in: "body"
+        description: "The group JSON you want to post"
+        required: true
+        schema:
+          title: "CustomGroups"
+          type: "array"
+          items:
+            $ref: "#/definitions/CustomGroups"
+      responses:
+        201:
+          description: "Created"
+        400:
+          description: "Bad request"
+        409:
+          description: "Conflict"
+        422:
+          description: "Unprocessable Entity"
+        500:
+          description: "Internal Server Error"
+        504:
+          description: "Gateway Timeout"
+      x-swagger-router-controller: "CustomGroups"       
+  /custom-groups/{groupName}/{year}:
+    get:
+      tags:
+      - "custom-groups"
+      description: "Return an existing custom group"
+      operationId: "getCustomGroup"
+      parameters:
+      - name: "groupName"
+        in: "path"
+        description: "Name of an existing custom group"
+        required: true
+        type: "string"
+      - name: "year"
+        in: "path"
+        description: "An existing year of the custom group"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Custom Group response"
+          schema:
+            type: "array"
+            title: "CustomGroups"
+            items:
+              $ref: "#/definitions/CustomGroups"
+        404:
+          description: "Not found"
+        500:
+          description: "Database error"
+      x-swagger-router-controller: "CustomGroups"               
+    delete:
+      tags:
+      - "custom-groups"
+      description: "Delete an existing custom group"
+      operationId: "deleteCustomGroup"
+      parameters:
+      - name: "groupName"
+        in: "path"
+        description: "Name of an existing custom group"
+        required: true
+        type: "string"
+      - name: "year"
+        in: "path"
+        description: "An existing year of the custom group"
+        required: true
+        type: "string"
+      responses:
+        204:
+          description: "Deleted custom group"
+        400:
+          description: "Bad request"
+        404:
+          description: "Not found"
+      x-swagger-router-controller: "CustomGroups"
+  /custom-groups/{metaDataField}:
+    get:
+      tags:
+      - "custom-groups"
+      description: "Return an existing custom group by metadata"
+      operationId: "getCustomGroupByMetadata"
+      parameters:
+      - name: "metaDataField"
+        in: "path"
+        description: "Name of metadata field"
+        required: true
+        type: "string"
+      - name: "value"
+        in: "query"
+        description: "Value of metadata"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Custom Group response"
+          schema:
+            type: "array"
+            title: "CustomGroups"
+            items:
+              $ref: "#/definitions/CustomGroups"
+        404:
+          description: "Not found"
+        500:
+          description: "Database error"
+      x-swagger-router-controller: "CustomGroups" 
+definitions:
+  CustomGroups:
+    type: "object"
+    properties:
+      groupName:
+        type: "string"
+      year:
+        type: "string"
+      researchers:
+        type: "array"
+        items:
+          $ref: "#/definitions/Researchers"
+  Researchers:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      orcid:
+        type: "string"
+      authorId:
+        type: "string"

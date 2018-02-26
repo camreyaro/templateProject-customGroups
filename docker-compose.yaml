@@ -1,0 +1,27 @@
+version: "2"
+services:
+  sabius_alpha_data_groups:
+    network_mode: bridge
+    image: isagroup/governify-service-sabius-data-groups:alpha
+    container_name: sabius-alpha-data-groups
+    links:
+      - sabius_alpha_db:sabius_alpha_db
+    environment:
+      - SERVICE_NAME=sabius-alpha-data-groups-container
+      - NODE_ENV=production
+      - PORT=80
+    restart: always
+    mem_limit: 200m
+  sabius_alpha_db:
+    network_mode: bridge
+    container_name: sabius-alpha-db-container
+    image: mongo
+    volumes:
+      - 'sabius_alpha_db_vol:/data/db'
+    environment:
+      - SERVICE_NAME=sabius-alpha-db-container
+    restart: always
+    mem_limit: 200m
+
+volumes:
+  sabius_alpha_db_vol: null
