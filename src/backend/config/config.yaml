@@ -16,3 +16,12 @@ development:
   loggerLevel: info
   urlMongo: localhost
   portMongo: 27017
+
+testing:
+  use_cors: true
+  use_helmet: true
+  port: 8081
+  logFile: "../../dev.log"
+  loggerLevel: info
+  urlMongo: sabius:sabius@ds51348.mlab.com
+  portMongo: 51348
