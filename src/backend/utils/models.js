@@ -27,6 +27,6 @@ var CustomGroupSchema = new Schema({
 var customGroups = mongoose.model("customGroups", CustomGroupSchema,"customGroups");
 
 
-module.exports = {
+module.exports = { 
   customGroups: customGroups
 };

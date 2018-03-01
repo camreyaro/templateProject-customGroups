@@ -185,6 +185,22 @@ module.exports = function (grunt) {
         grunt.file.write('package.json', JSON.stringify(grunt.config('pkg'), null, 2));
     });
 
+    grunt.registerTask('drop', 'drop the database', function() {
+        // async mode
+        var done = this.async();
+        
+        db.mongoose.connection.on('open', function () { 
+          db.mongoose.connection.db.dropDatabase(function(err) {
+            if(err) {
+              console.log(err);
+            } else {
+              console.log('Successfully dropped db');
+            }
+            db.mongoose.connection.close(done);
+          });
+        });
+        });
+
     // Default task(s).
     grunt.registerTask('default', ['jshint', 'usebanner']);
 

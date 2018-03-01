@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "jasmine-node src/backend/spec"
+    "test": "newman run src/backend/newmantests/custom-groups.data.postman_collection.json -e src/backend/newmantests/localhost.postman_environment.json newman"
   },
   "keywords": [
     "swagger"
