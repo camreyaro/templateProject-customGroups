@@ -10,7 +10,7 @@ services:
   - mongodb  
 
 before_script:
-  - yarn add grunt-cli && yarn add grunt-mocha-istanbul && npm install newman --global;
+  - yarn add grunt-cli && yarn add grunt-mocha-istanbul 
 
 script:
   - npm start  &
