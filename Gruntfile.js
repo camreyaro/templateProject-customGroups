@@ -187,7 +187,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('drop', 'drop the database', function() {
         db.mongoose.connection.on('open', function () { 
-          db.mongoose.connection.db.dropDatabase(function(err) {
+          db.mongoose.connection.db.dropCollection(function(err) {
             if(err) {
               console.log(err);
             } else {

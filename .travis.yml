@@ -10,11 +10,12 @@ services:
   - mongodb  
 
 before_script:
-  - yarn add grunt-cli && yarn add grunt-mocha-istanbul && npm install newman --global && grunt drop;
+  - yarn add grunt-cli && yarn add grunt-mocha-istanbul && npm install newman --global;
 
 script:
   - npm start  &
   - sleep 10 
+  - grunt drop
   - npm test 
 
 after_success:
