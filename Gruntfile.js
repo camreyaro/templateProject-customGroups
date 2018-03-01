@@ -186,9 +186,6 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('drop', 'drop the database', function() {
-        // async mode
-        var done = this.async();
-        
         db.mongoose.connection.on('open', function () { 
           db.mongoose.connection.db.dropDatabase(function(err) {
             if(err) {
