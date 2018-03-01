@@ -1,0 +1,895 @@
+{
+	"info": {
+		"name": "Custom-groups.data",
+		"_postman_id": "e6478aa0-c2f0-c18e-c918-62d1dcafac09",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET",
+			"description": "",
+			"item": [
+				{
+					"name": "Get all groups",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8bf52bae-2832-4e61-8a32-18e448a8bf3d",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body contains groupName\"] = responseBody.has(\"groupName\");",
+									"tests[\"Body contains year\"] = responseBody.has(\"year\");",
+									"tests[\"Body contains researchers\"] = responseBody.has(\"researchers\");",
+									"tests[\"Body contains name\"] = responseBody.has(\"name\");",
+									"tests[\"Body contains orcid\"] = responseBody.has(\"orcid\");",
+									"tests[\"Body contains authorId\"] = responseBody.has(\"authorId\");",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Length greater than 0\"] = jsonData.length > 0;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"groupName\": \"string\",\r\n    \"year\": \"string\",\r\n    \"authorObject\": [\r\n      {\r\n        \"name\": \"string\",\r\n        \"orcid\": \"string\",\r\n        \"authorId\": \"string\"\r\n      }\r\n    ]\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get group by groupName and year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "066c0b0c-6b3d-4a5f-9d32-2e5747afffe8",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body contains groupName\"] = responseBody.has(\"groupName\");",
+									"tests[\"Body contains year\"] = responseBody.has(\"year\");",
+									"tests[\"Body contains researchers\"] = responseBody.has(\"researchers\");",
+									"tests[\"Body contains name\"] = responseBody.has(\"name\");",
+									"tests[\"Body contains orcid\"] = responseBody.has(\"orcid\");",
+									"tests[\"Body contains authorId\"] = responseBody.has(\"authorId\");",
+									"",
+									"tests[\"Body contains UE@I3US-GarantesJunio\"] = responseBody.has(\"UE@I3US-GarantesJunio\");",
+									"tests[\"Body contains 2017\"] = responseBody.has(\"2017\");",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Length equal to 1\"] = jsonData.length === 1;",
+									"",
+									"tests[\"Researchers equal to 6\"] = jsonData[0].researchers.length === 6;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"groupName\": \"string\",\r\n    \"year\": \"string\",\r\n    \"authorObject\": [\r\n      {\r\n        \"name\": \"string\",\r\n        \"orcid\": \"string\",\r\n        \"authorId\": \"string\"\r\n      }\r\n    ]\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/UE@I3US-GarantesJunio/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"UE@I3US-GarantesJunio",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Get group by non existing groupName and year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aeaad963-cd24-4c88-972e-b65daa4b8bdc",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"404 Not Found\"] = responseCode.code === 404;",
+									"tests[\"Body contains error message\"] = responseBody === \"Not Found\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"groupName\": \"string\",\r\n    \"year\": \"string\",\r\n    \"authorObject\": [\r\n      {\r\n        \"name\": \"string\",\r\n        \"orcid\": \"string\",\r\n        \"authorId\": \"string\"\r\n      }\r\n    ]\r\n  }\r\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/Test/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"Test",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "POST",
+			"description": "",
+			"item": [
+				{
+					"name": "Post group without year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b32fc15b-9b39-4a4a-8285-a152ef40ac05",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"422 Unprocessable Entity\"] = responseCode.code === 422;",
+									"tests[\"Body contains error message\"] = responseBody === \"Unprocessable Entity\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\",\n        \"orcid\": \"0000-0002-9317-3626\",\n        \"authorId\": \"55880417300\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Post group without groupName",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2b2cc16e-bcfc-4a96-b65b-e3ba6212d3d9",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"422 Unprocessable Entity\"] = responseCode.code === 422;",
+									"tests[\"Body contains error message\"] = responseBody === \"Unprocessable Entity\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"year\": \"2017\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\",\n        \"orcid\": \"0000-0002-9317-3626\",\n        \"authorId\": \"55880417300\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Post group without researchers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eb7867ae-a606-4c76-a488-dc3c59795785",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"422 Unprocessable Entity\"] = responseCode.code === 422;",
+									"tests[\"Body contains error message\"] = responseBody === \"Unprocessable Entity\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba\",\n    \"year\": \"2017\"\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Post group without name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c202e4b7-a1b3-46b0-8368-6e49fdeefbf6",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"422 Unprocessable Entity\"] = responseCode.code === 422;",
+									"tests[\"Body contains error message\"] = responseBody === \"Unprocessable Entity\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba\",\n    \"year\": \"2017\",\n    \"researchers\": [\n      {\n        \"orcid\": \"0000-0002-9317-3626\",\n        \"authorId\": \"55880417300\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Post group without orcid and authorId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d2597fb1-39a0-4fa8-a508-248081c2731b",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"422 Unprocessable Entity\"] = responseCode.code === 422;",
+									"tests[\"Body contains error message\"] = responseBody === \"Unprocessable Entity\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba\",\n    \"year\": \"2017\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Successful post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecd47f4-fb40-419a-be3f-f6f459f016b5",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Body contains 'created' message\"] = responseBody === \"Created\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba\",\n    \"year\": \"2017\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\",\n        \"orcid\": \"0000-0002-9317-3626\",\n        \"authorId\": \"55880417300\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Check group has been created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "978a3aad-4395-48c5-9e3a-4c019dad8ce3",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body contains groupName\"] = responseBody.has(\"groupName\");",
+									"tests[\"Body contains year\"] = responseBody.has(\"year\");",
+									"tests[\"Body contains researchers\"] = responseBody.has(\"researchers\");",
+									"tests[\"Body contains name\"] = responseBody.has(\"name\");",
+									"tests[\"Body contains orcid\"] = responseBody.has(\"orcid\");",
+									"tests[\"Body contains authorId\"] = responseBody.has(\"authorId\");",
+									"",
+									"tests[\"Body contains Prueba\"] = responseBody.has(\"Prueba\");",
+									"tests[\"Body contains 2017\"] = responseBody.has(\"2017\");",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Length equal to 1\"] = jsonData.length === 1;",
+									"",
+									"tests[\"Researchers equal to 6\"] = jsonData[0].researchers.length === 1;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"groupName\": \"Prueba\", \"year\": \"2017\", \"researchers\": [{ \"name\": \"José Antonio Troyano\", \"orcid\": \"0000-0002-9317-3626\", \"authorId\": \"55880417300\" }] }"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/Prueba/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"Prueba",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Successful post with metadata",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4ecd47f4-fb40-419a-be3f-f6f459f016b5",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 201\"] = responseCode.code === 201;",
+									"tests[\"Body contains 'created' message\"] = responseBody === \"Created\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba_con_metadata\",\n    \"year\": \"2017\",\n    \"institute\": \"pepe\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\",\n        \"orcid\": \"0000-0002-9317-3626\",\n        \"authorId\": \"55880417300\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Check group with metada has been created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7239e44b-6e43-48e4-b7d6-d9d1394c58ad",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 200\"] = responseCode.code === 200;",
+									"",
+									"tests[\"Body contains groupName\"] = responseBody.has(\"groupName\");",
+									"tests[\"Body contains year\"] = responseBody.has(\"year\");",
+									"tests[\"Body contains institute\"] = responseBody.has(\"institute\");",
+									"tests[\"Body contains researchers\"] = responseBody.has(\"researchers\");",
+									"tests[\"Body contains name\"] = responseBody.has(\"name\");",
+									"tests[\"Body contains orcid\"] = responseBody.has(\"orcid\");",
+									"tests[\"Body contains authorId\"] = responseBody.has(\"authorId\");",
+									"",
+									"tests[\"Body contains Prueba\"] = responseBody.has(\"Prueba_con_metadata\");",
+									"tests[\"Body contains 2017\"] = responseBody.has(\"2017\");",
+									"tests[\"Body contains pepe\"] = responseBody.has(\"pepe\");",
+									"",
+									"var jsonData = JSON.parse(responseBody);",
+									"tests[\"Length equal to 1\"] = jsonData.length === 1;",
+									"",
+									"tests[\"Researchers equal to 6\"] = jsonData[0].researchers.length === 1;"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \"groupName\": \"Prueba\", \"year\": \"2017\", \"researchers\": [{ \"name\": \"José Antonio Troyano\", \"orcid\": \"0000-0002-9317-3626\", \"authorId\": \"55880417300\" }] }"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/Prueba_con_metadata/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"Prueba_con_metadata",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Conflict post",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ce24a45-66c1-42a9-8c39-bb8fe2e5fac3",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"409 Conflict\"] = responseCode.code === 409;",
+									"tests[\"Body contains error message\"] = responseBody === \"Conflict\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba\",\n    \"year\": \"2017\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\",\n        \"orcid\": \"0000-0002-9317-3626\",\n        \"authorId\": \"55880417300\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Successful post without orcid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "36f1f2ff-3000-46e1-8e96-6393258698c2",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"201 Created\"] = responseCode.code === 201;",
+									"tests[\"Body contains 'created' message\"] = responseBody === \"Created\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba_sin_orcid\",\n    \"year\": \"2017\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\",\n        \"authorId\": \"55880417300\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Successful post without authorId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fb1b2305-93a4-4972-99f2-47dc72f08e3d",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"201 Created\"] = responseCode.code === 201;",
+									"tests[\"Body contains 'created' message\"] = responseBody === \"Created\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n  {\n    \"groupName\": \"Prueba_sin_authorId\",\n    \"year\": \"2017\",\n    \"researchers\": [\n      {\n        \"name\": \"José Antonio Troyano\",\n        \"orcid\": \"0000-0002-9317-3626\"\n      }\n    ]\n  }\n]"
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "DELETE",
+			"description": "",
+			"item": [
+				{
+					"name": "Delete group Prueba 2017",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3b860d04-7c7c-4f8e-bdda-5d1c9d7e8da0",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									"tests[\"Body is empty\"] = responseBody === \"\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/Prueba/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"Prueba",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete group Prueba_sin_authorId 2017",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1b0a2cf-a665-4302-a62d-a312bf756e4e",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									"tests[\"Body is empty\"] = responseBody === \"\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/Prueba_sin_authorId/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"Prueba_sin_authorId",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete group Prueba_sin_orcid 2017",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8542a021-ea7a-4992-a9e8-3e07d6c685c8",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									"tests[\"Body is empty\"] = responseBody === \"\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/Prueba_sin_orcid/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"Prueba_sin_orcid",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				},
+				{
+					"name": "Delete group Prueba_con_metadata",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1b0a2cf-a665-4302-a62d-a312bf756e4e",
+								"type": "text/javascript",
+								"exec": [
+									"tests[\"Status code is 204\"] = responseCode.code === 204;",
+									"tests[\"Body is empty\"] = responseBody === \"\";"
+								]
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{custom-groups.data-url}}{{custom-groups.data-port}}/api/v1/custom-groups/Prueba_con_metadata/2017",
+							"host": [
+								"{{custom-groups.data-url}}{{custom-groups.data-port}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"custom-groups",
+								"Prueba_con_metadata",
+								"2017"
+							]
+						},
+						"description": null
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
