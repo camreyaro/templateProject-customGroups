@@ -20,6 +20,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 'use strict';
 
+var mongoose = require("mongoose");
+var modelsMongo = require("./src/backend/utils/models");
+var model = modelsMongo.customGroups;
+var config = require("./src/backend/config/config");
+var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/sabius";
+var promise = modelsMongo.promise;
+
+
 module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-jshint');
@@ -37,6 +45,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-mocha-istanbul");
 
     grunt.loadNpmTasks('grunt-contrib-jasmine');
+
 
     // Project configuration.
     grunt.initConfig({
@@ -186,20 +195,23 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('drop', 'drop the database', function() {
-        db.mongoose.connection.on('open', function () { 
-          db.mongoose.connection.db.dropCollection(function(err) {
-            if(err) {
-              console.log(err);
-            } else {
-              console.log('Successfully dropped db');
-            }
-            db.mongoose.connection.close(done);
-          });
-        });
-        });
+
+        var done = this.async();
+        model.remove({},function(){
+            console.log("sasda");
+            done();
+        })
+    });
+
+    grunt.registerTask('import', '', function () {
+        var exec = require('child_process').execSync;
+        var result = exec('mongoimport --uri ' + uri + ' --collection myData --drop --file test-files/custom-groups.json', { encoding: 'utf8' });
+        grunt.log.writeln(result);
+ });
 
     // Default task(s).
     grunt.registerTask('default', ['jshint', 'usebanner']);
+
 
     //TEST TASK
     grunt.registerTask('test', ['jshint', 'mochaTest']);

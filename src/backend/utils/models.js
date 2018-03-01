@@ -28,5 +28,6 @@ var customGroups = mongoose.model("customGroups", CustomGroupSchema,"customGroup
 
 
 module.exports = { 
-  customGroups: customGroups
+  customGroups: customGroups,
+  promise: promise
 };

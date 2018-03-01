@@ -15,7 +15,7 @@ before_script:
 script:
   - npm start  &
   - sleep 10 
-  - grunt drop
+  - grunt import
   - npm test 
 
 after_success:

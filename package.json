@@ -48,6 +48,7 @@
     "grunt-dockerize": "0.0.1",
     "grunt-header": "^1.1.0",
     "grunt-mocha-test": "^0.13.2",
+    "grunt-mongoimport": "^0.1.7",
     "grunt-release-github": "1.0.4",
     "mocha": "^3.2.0"
   }
