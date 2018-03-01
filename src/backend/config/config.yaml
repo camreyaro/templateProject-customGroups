@@ -23,5 +23,5 @@ testing:
   port: 8081
   logFile: "../../dev.log"
   loggerLevel: info
-  urlMongo: sabius:sabius@ds151348.mlab.com
-  portMongo: 51348
+  urlMongo: sabius:sabius@ds151528.mlab.com
+  portMongo: 51528

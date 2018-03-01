@@ -194,16 +194,7 @@ module.exports = function (grunt) {
         grunt.file.write('package.json', JSON.stringify(grunt.config('pkg'), null, 2));
     });
 
-    grunt.registerTask('drop', 'drop the database', function() {
-
-        var done = this.async();
-        model.remove({},function(){
-            console.log("sasda");
-            done();
-        })
-    });
-
-    grunt.registerTask('import', '', function () {
+    grunt.registerTask('import', 'drop and import data', function () {
         var exec = require('child_process').execSync;
         var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file test-files/custom-groups.json', { encoding: 'utf8' });
         grunt.log.writeln(result);
