@@ -205,7 +205,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('import', '', function () {
         var exec = require('child_process').execSync;
-        var result = exec('mongoimport --uri ' + uri + ' --collection myData --drop --file test-files/custom-groups.json', { encoding: 'utf8' });
+        var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file test-files/custom-groups.json', { encoding: 'utf8' });
         grunt.log.writeln(result);
  });
 
