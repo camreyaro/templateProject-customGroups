@@ -25,3 +25,4 @@ testing:
   loggerLevel: info
   urlMongo: sabius:sabius@ds151528.mlab.com
   portMongo: 51528
+  dbName: sabius

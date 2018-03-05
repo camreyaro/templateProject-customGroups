@@ -1,8 +1,8 @@
 /*!
-group-service 0.0.0, built on: 2018-01-10
-Copyright (C) 2018 ISA group
+project-template-nodejs 0.0.0, built on: 2017-03-30
+Copyright (C) 2017 ISA group
 http://www.isa.us.es/
-https://github.com/Albrodpul/groups-service
+https://github.com/isa-group/project-template-nodejs
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,13 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 'use strict';
 
-var mongoose = require("mongoose");
-var modelsMongo = require("./src/backend/utils/models");
-var model = modelsMongo.customGroups;
 var config = require("./src/backend/config/config");
-var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/sabius";
-var promise = modelsMongo.promise;
-
 
 module.exports = function (grunt) {
 
@@ -44,7 +38,6 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks("grunt-mocha-istanbul");
 
-    grunt.loadNpmTasks('grunt-contrib-jasmine');
 
 
     // Project configuration.
@@ -85,7 +78,7 @@ module.exports = function (grunt) {
 
         //Lint JS 
         jshint: {
-            all: ['Gruntfile.js', 'src/**/*.js', 'tests/**/*.js', 'index.js'], //If you want to inspect more file, you change this.
+            all: ['Gruntfile.js', 'src/(!report/)**/*.js', 'tests/**/*.js', 'index.js'], //If you want to inspect more file, you change this.
             options: {
                 jshintrc: '.jshintrc'
             }
@@ -153,13 +146,6 @@ module.exports = function (grunt) {
               coverageFolder: "public/coverage"
             }
           }},
-          jasmine: {
-            js: {
-              options: {
-                specs: 'src/backend/spec/customGroupService.spec.js'
-              }
-            }
-          },
 
         //USE THIS TASK FOR BUILDING AND PUSHING docker images
         dockerize: {
@@ -196,12 +182,15 @@ module.exports = function (grunt) {
 
     grunt.registerTask('import', 'drop and import data', function () {
         var exec = require('child_process').execSync;
-        var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file test-files/custom-groups.json', { encoding: 'utf8' });
+        var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/" + config.dbName;
+        var fileLocation = "test-files/custom-groups.json";
+
+        var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file' + fileLocation, { encoding: 'utf8' });
         grunt.log.writeln(result);
  });
 
     // Default task(s).
-    grunt.registerTask('default', ['jshint', 'usebanner']);
+    grunt.registerTask('default', ['usebanner']);
 
 
     //TEST TASK
@@ -212,5 +201,6 @@ module.exports = function (grunt) {
 
     //DEVELOPMENT TASK
     grunt.registerTask('dev', ['watch']);
+
 
 };
