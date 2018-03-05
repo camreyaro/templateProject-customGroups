@@ -185,7 +185,7 @@ module.exports = function (grunt) {
         var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/" + config.dbName;
         var fileLocation = "test-files/custom-groups.json";
 
-        var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file' + fileLocation, { encoding: 'utf8' });
+        var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file ' + fileLocation, { encoding: 'utf8' });
         grunt.log.writeln(result);
  });
 
