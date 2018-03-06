@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/isa-group/governify-service-sabius-data-groups/groups-service#readme",
   "private": true,
-  "dependencies": {
+  "dependencies": { 
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "compression": "^1.7.1",
