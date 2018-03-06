@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack && node index.js",
-    "test": "newman run src/backend/newmantests/custom-groups.data.postman_collection.json -e src/backend/newmantests/localhost.postman_environment.json newman",
+    "test": "newman run src/backend/newmantests/custom-groups.data.postman_collection.json -e src/backend/newmantests/localhost.postman_environment.json newman && grunt test",
     "dev": "concurrently --kill-others \"yarn run start\" \"grunt watch\""
   },
   "keywords": [
