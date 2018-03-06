@@ -18,24 +18,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 
-'use strict';
+// 'use strict';
 
-var expect = require('chai').expect;
-var lib = require('../src');
+// var expect = require('chai').expect;
+// var lib = require('../src');
 
 
 /*
  * USE MOCHA AND CHAI for testing your code
  */
-describe('First Level test', function () {
-    this.timeout(10000);
-    it('Execute', (done) => {
+// describe('First Level test', function () {
+//     this.timeout(10000);
+//     it('Execute', (done) => {
 
-        var result = lib.myfunction("test", "1");
+//         var result = lib.myfunction("test", "1");
 
-        expect(result).to.be.equal("test-1");
+//         expect(result).to.be.equal("test-1");
 
-        done();
+//         done();
 
-    });
-});
+//     });
+// });
