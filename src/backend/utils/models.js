@@ -24,10 +24,8 @@ var CustomGroupSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var customGroups = mongoose.model("customGroups", CustomGroupSchema,"customGroups");
+var customGroups = mongoose.model("customGroups", CustomGroupSchema);
 
-
-module.exports = { 
-  customGroups: customGroups,
-  promise: promise
+module.exports = {
+  customGroups: customGroups
 };

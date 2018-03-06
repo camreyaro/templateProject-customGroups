@@ -12,10 +12,6 @@ module.exports.getCustomGroups = function getCustomGroups(req, res, next) {
   Groups.getCustomGroups(req.swagger.params, res, next);
 };
 
-module.exports.getCustomGroupByMetadata = function getCustomGroupByMetadata(req, res, next) {
-  Groups.getCustomGroupByMetadata(req.swagger.params, res, next);
-};
-
 module.exports.getCustomGroup = function getCustomGroup(req, res, next) {
   Groups.getCustomGroup(req.swagger.params, res, next);
 };

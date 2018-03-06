@@ -6,7 +6,7 @@ describe("Groups Service Server", function () {
     it("Get Groups", function (done) {
         request.get(baseUrl, function (err, res, body) {
             var json = JSON.parse(body);
-            expect(json.length).toBe(9);
+            expect(json.length).toBeGreaterThan(0);
             expect(res.statusCode).toBe(200);
             done();
         });
@@ -53,7 +53,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }
+            json: [{ "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(422);
@@ -65,7 +65,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }
+            json: [{ "groupName": "Prueba", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(422);
@@ -77,7 +77,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba", "year": "2017" }
+            json: [{ "groupName": "Prueba", "year": "2017" }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(422);
@@ -89,7 +89,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba", "year": "2017", "researchers": [{ "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }
+            json: [{ "groupName": "Prueba", "year": "2017", "researchers": [{ "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(422);
@@ -101,7 +101,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano" }] }
+            json: [{ "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(422);
@@ -113,7 +113,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano" }] }
+            json: [{ "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(422);
@@ -125,7 +125,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }
+            json: [{ "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(201);
@@ -152,7 +152,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }
+            json: [{ "groupName": "Prueba", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(409);
@@ -164,7 +164,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba_sin_orcid", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "authorId": "55880417300" }] }
+            json: [{ "groupName": "Prueba_sin_orcid", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "authorId": "55880417300" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(201);
@@ -176,7 +176,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba_sin_authorId", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626" }] }
+            json: [{ "groupName": "Prueba_sin_authorId", "year": "2017", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(201);
@@ -188,7 +188,7 @@ describe("Groups Service Server", function () {
         var options = {
             url: baseUrl,
             method: 'POST',
-            json: { "groupName": "Prueba_con_metadata", "year": "2017", "institute": "pepe", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }
+            json: [{ "groupName": "Prueba_con_metadata", "year": "2017", "institute": "pepe", "researchers": [{ "name": "José Antonio Troyano", "orcid": "0000-0002-9317-3626", "authorId": "55880417300" }] }]
         }
         request(options, function (err, res, body) {
             expect(res.statusCode).toBe(201);
