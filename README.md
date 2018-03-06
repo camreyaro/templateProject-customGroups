@@ -8,7 +8,7 @@ integration too.
 ## How to adapt the template
 
 Before starting to develop your project you must adapt this template by following the next 
-steps:
+steps:   
 
 1. Download project-template-nodejs [latest version](#1-latest-release).
 2. [Basic usage](#2-basic-usage)
