@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 'use strict';
 
-var config = require("./src/backend/configurations/config");
+var config = require("./src/backend/config/config");
 
 module.exports = function (grunt) {
 
