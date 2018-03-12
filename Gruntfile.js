@@ -178,7 +178,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('import', 'drop and import data', function () {
         var exec = require('child_process').execSync;
-        var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/" + config.dbName;
+        var uri = "mongodb://" + config.server.urlMongo + ":" + config.server.portMongo + "/" + config.server.dbName;
         var fileLocation = "test-files/custom-groups.json";
 
         var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file ' + fileLocation, { encoding: 'utf8' });
