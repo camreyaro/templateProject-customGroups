@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 'use strict';
 
-var config = require("./src/backend/config/config");
+var config = require("./src/backend/configurations/config");
 
 module.exports = function (grunt) {
 
@@ -78,7 +78,7 @@ module.exports = function (grunt) {
 
         //Lint JS 
         jshint: {
-            all: ['Gruntfile.js', 'src/(!report/)**/*.js', 'tests/**/*.js', 'index.js'], //If you want to inspect more file, you change this.
+            all: ['Gruntfile.js','src/**/*.js', '!**/frontend/report/**', '!**/frontend/coverage/**','tests/**/*.js', 'index.js'], //If you want to inspect more file, you change this.
             options: {
                 jshintrc: '.jshintrc'
             }
@@ -105,9 +105,8 @@ module.exports = function (grunt) {
         release: {
             options: {
                 changelog: true, //NOT CHANGE
-                changelogFromGithub: true, //NOT CHANGE
                 githubReleaseBody: 'See [CHANGELOG.md](./CHANGELOG.md) for details.', //NOT CHANGE
-                npm: true, //CHANGE TO TRUE IF YOUR PROJECT IS A NPM MODULE 
+                npm: false, //CHANGE TO TRUE IF YOUR PROJECT IS A NPM MODULE 
                 //npmtag: true, //default: no tag
                 beforeBump: [], // IS NOT READY YET
                 afterBump: [], // IS NOT READY YET
@@ -115,7 +114,7 @@ module.exports = function (grunt) {
                 afterRelease: [], // IS NOT READY YET
                 updateVars: ['pkg'], //NOT CHANGE
                 github: {
-                    repo: "Albrodpul/groups-service",
+                    repo: "isa-group/project-template-nodejs",
                     accessTokenVar: "GITHUB_ACCESS_TOKEN", //SET ENVIRONMENT VARIABLE WITH THIS NAME
                     usernameVar: "GITHUB_USERNAME" //SET ENVIRONMENT VARIABLE WITH THIS NAME
                 }
@@ -131,21 +130,18 @@ module.exports = function (grunt) {
         },
 
         mocha_istanbul: {
-          full: {
-            src: [
-              "tests/01-pre-test/**/*.test.js",
-              "tests/02-test-cases/**/*.test.js",
-              "tests/03-post-test/**/*.test.js"
-            ],
-    
-            options: {
-              mask: "*.test.js",
-    
-              istanbulOptions: ["--harmony", "--handle-sigint"],
-    
-              coverageFolder: "public/coverage"
-            }
-          }},
+            full: {
+              src: [
+                "tests/**/*.test.js",
+  
+              ],
+      
+              options: {
+                mask: "*.test.js",
+                istanbulOptions: ["--harmony", "--handle-sigint"],
+                coverageFolder: "src/backend/coverage"
+              }
+            }},
 
         //USE THIS TASK FOR BUILDING AND PUSHING docker images
         dockerize: {
@@ -187,7 +183,7 @@ module.exports = function (grunt) {
 
         var result = exec('mongoimport --uri ' + uri + ' --collection customGroups --drop --file ' + fileLocation, { encoding: 'utf8' });
         grunt.log.writeln(result);
- });
+   });
 
     // Default task(s).
     grunt.registerTask('default', ['usebanner']);

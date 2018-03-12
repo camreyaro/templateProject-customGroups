@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
  * */
 
 var winston = require('winston');
-var config = require('../config/config');
+var config = require('../configurations/config');
 
 /**
  * Configure here your custom levels.
@@ -48,28 +48,29 @@ var customLeves = {
 };
 
 winston.emitErrs = true;
-
 var logger = new winston.Logger({
-    levels: customLeves.levels,
-    colors: customLeves.colors,
-    transports: [
-        new winston.transports.File({
-            level: config.logLevel,
-            filename: config.logFile,
-            handleExceptions: true,
-            json: false,
-            maxsize: 5242880, //5MB
-            colorize: false
-        }),
-        new winston.transports.Console({
-            level: config.loglevel,
-            handleExceptions: true,
-            json: false,
-            colorize: true,
-            timestamp: true
-        })
-    ],
-    exitOnError: false
+  levels: customLeves.levels,
+  colors: customLeves.colors,
+  transports: [
+    new winston.transports.File({
+      createTree: false,
+      level: config.log.level,
+      filename: config.log.file,
+      handleExceptions: true,
+      json: false,
+      tailable: true,
+      maxsize: config.log.maxSize,
+      maxFiles: config.log.maxFiles,
+    }),
+    new winston.transports.Console({
+      level: config.loglevel,
+      handleExceptions: true,
+      json: false,
+      colorize: true,
+      timestamp: true
+    })
+  ],
+  exitOnError: false
 });
 
 /*

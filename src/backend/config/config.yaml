@@ -1,28 +1,34 @@
----
 production:
-  use_cors: false
-  use_helmet: false
-  port: 8080
-  logFile: "./logs/prod.log"
-  loggerLevel: info
-  urlMongo: sabius_alpha_db
-  portMongo: 27017
+  server: 
+    port: 5000
+
+  log:
+    level: info
+    file: './logs/pro-logs.log' #Where log file will be saved. Date will be concatenated before the name.
+    maxSize: 10000000 #(10MB) Maximum file log size, if one file reaches it, a new file is created.
+    maxFiles: 30 # Max Files that can be created per day reaching the maxSize.
   
 development:
-  use_cors: true
-  use_helmet: true
-  port: 8081
-  logFile: "./logs/dev.log"
-  loggerLevel: info
-  urlMongo: localhost
-  portMongo: 27017
+  server: 
+    port: 5000
+    urlMongo: localhost
+    portMongo: 27017
+
+  log:
+    level: debug
+    file: './logs/dev-logs.log' #Where log file will be saved. Date will be concatenated before the name.
+    maxSize: 10000000 #(10MB) Maximum file log size, if one file reaches it, a new file is created.
+    maxFiles: 30 # Max Files that can be created per day reaching the maxSize.
+
 
 testing:
-  use_cors: true
-  use_helmet: true
-  port: 8081
-  logFile: "../../dev.log"
-  loggerLevel: info
-  urlMongo: sabius:sabius@ds151528.mlab.com
-  portMongo: 51528
-  dbName: sabius
+  server:
+    port: 5000
+    urlMongo: sabius:sabius@ds151528.mlab.com
+    portMongo: 51528
+    dbName: sabius
+
+  log:
+    file: './logs/test-logs.log' #Where log file will be saved. Date will be concatenated before the name.
+    maxSize: 10000000 #(10MB) Maximum file log size, if one file reaches it, a new file is created.
+    maxFiles: 30 # Max Files that can be created per day reaching the maxSize.
