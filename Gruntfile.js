@@ -78,7 +78,7 @@ module.exports = function (grunt) {
 
         //Lint JS 
         jshint: {
-            all: ['Gruntfile.js', 'src/(!report/)**/*.js', 'tests/**/*.js', 'index.js'], //If you want to inspect more file, you change this.
+            all: ['Gruntfile.js','src/**/*.js', '!**/frontend/report/**', '!**/frontend/coverage/**','tests/**/*.js', 'index.js'], //If you want to inspect more file, you change this.
             options: {
                 jshintrc: '.jshintrc'
             }
@@ -98,16 +98,15 @@ module.exports = function (grunt) {
             }
         },
 
-        //Make a new release on github
+         //Make a new release on github
         //"grunt release" for pacth version
         //"grunt release:minior" for minior version
         //"grunt release:major" for major version
         release: {
             options: {
                 changelog: true, //NOT CHANGE
-                changelogFromGithub: true, //NOT CHANGE
                 githubReleaseBody: 'See [CHANGELOG.md](./CHANGELOG.md) for details.', //NOT CHANGE
-                npm: true, //CHANGE TO TRUE IF YOUR PROJECT IS A NPM MODULE 
+                npm: false, //CHANGE TO TRUE IF YOUR PROJECT IS A NPM MODULE 
                 //npmtag: true, //default: no tag
                 beforeBump: [], // IS NOT READY YET
                 afterBump: [], // IS NOT READY YET
@@ -115,7 +114,7 @@ module.exports = function (grunt) {
                 afterRelease: [], // IS NOT READY YET
                 updateVars: ['pkg'], //NOT CHANGE
                 github: {
-                    repo: "Albrodpul/groups-service",
+                    repo: "isa-group/project-template-nodejs",
                     accessTokenVar: "GITHUB_ACCESS_TOKEN", //SET ENVIRONMENT VARIABLE WITH THIS NAME
                     usernameVar: "GITHUB_USERNAME" //SET ENVIRONMENT VARIABLE WITH THIS NAME
                 }
@@ -133,9 +132,7 @@ module.exports = function (grunt) {
         mocha_istanbul: {
           full: {
             src: [
-              "tests/01-pre-test/**/*.test.js",
-              "tests/02-test-cases/**/*.test.js",
-              "tests/03-post-test/**/*.test.js"
+                "tests/**/*.test.js"
             ],
     
             options: {
@@ -143,7 +140,7 @@ module.exports = function (grunt) {
     
               istanbulOptions: ["--harmony", "--handle-sigint"],
     
-              coverageFolder: "public/coverage"
+              coverageFolder: "src/backend/coverage"
             }
           }},
 
