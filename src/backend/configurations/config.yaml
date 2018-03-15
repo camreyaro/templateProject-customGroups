@@ -43,7 +43,8 @@ testing:
   use_helmet: true
   urlMongo: sabius:sabius@ds151528.mlab.com
   portMongo: 51528
-
+  dbName: sabius
+  
   server:
     port: 8081
 
