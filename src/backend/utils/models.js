@@ -1,6 +1,6 @@
 "use strict";
 var mongoose = require("mongoose");
-var config = require("../config/config");
+var config = require("../configurations/config");
 var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/sabius";
 var promise = mongoose.connect(uri);
 // mongoose.Promise = global.Promise;
@@ -24,10 +24,13 @@ var CustomGroupSchema = new Schema({
 
 // the schema is useless so far
 // we need to create a model using it
-var customGroups = mongoose.model("customGroups", CustomGroupSchema,"customGroups");
+var customGroups = mongoose.model(
+  "customGroups",
+  CustomGroupSchema,
+  "customGroups"
+);
 
-
-module.exports = { 
+module.exports = {
   customGroups: customGroups,
   promise: promise
 };

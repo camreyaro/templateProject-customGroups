@@ -4,8 +4,8 @@ const request = require("request");
 const Promise = require("bluebird");
 
 const mongo = require("../utils/mongo");
-const config = require("../config/config");
-const logger = require("../config/logConfig");
+const config = require("../configurations/config");
+const logger = require("../logger/logger");
 
 exports.getCustomGroups = function(args, res, next) {
   /**
@@ -16,10 +16,10 @@ exports.getCustomGroups = function(args, res, next) {
   logger.info("Get Groups");
   mongo.getCustomGroups(function(err, data) {
     if (err) {
-    //  logger.info(err);
+      //  logger.info(err);
       res.sendStatus(500); // internal server error
     } else {
-     // logger.info(data);
+      // logger.info(data);
       logger.info("Get!");
       res.send(data);
     }
@@ -44,7 +44,7 @@ exports.getCustomGroup = function(args, res, next) {
   } else {
     mongo.getCustomGroup(groupName, year, function(err, data) {
       if (err) {
-           // logger.info(err);
+        // logger.info(err);
         res.sendStatus(500); // internal server error
       } else if (data) {
         logger.info("Get group!");
@@ -75,7 +75,7 @@ exports.getCustomGroupByMetadata = function(args, res, next) {
   } else {
     mongo.getCustomGroupByMetadata(metaDataField, value, function(err, data) {
       if (err) {
-            //logger.info(err);
+        //logger.info(err);
         res.sendStatus(500); // internal server error
       } else if (data) {
         logger.info("Get groups!");
@@ -85,7 +85,7 @@ exports.getCustomGroupByMetadata = function(args, res, next) {
         res.sendStatus(404);
       }
     });
-  }  
+  }
 };
 
 exports.insertCustomGroup = function(args, res, next) {
@@ -111,7 +111,11 @@ exports.insertCustomGroup = function(args, res, next) {
     ) {
       var flag = 0;
       for (var i = 0; i < customGroup[0].researchers.length; i++) {
-        if (!customGroup[0].researchers[i].name || (!customGroup[0].researchers[i].orcid && !customGroup[0].researchers[i].authorId)) {
+        if (
+          !customGroup[0].researchers[i].name ||
+          (!customGroup[0].researchers[i].orcid &&
+            !customGroup[0].researchers[i].authorId)
+        ) {
           flag = 1;
           break;
         }

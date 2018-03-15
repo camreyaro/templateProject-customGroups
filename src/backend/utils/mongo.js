@@ -12,9 +12,9 @@ const assert = require("assert");
 var mongoose = require("mongoose");
 
 var modelsMongo = require("../utils/models");
-var config = require("../config/config");
+var config = require("../configurations/config");
 
-var logger = require("../config/logConfig");
+var logger = require("../logger/logger");
 
 var uri = "mongodb://" + config.urlMongo + ":" + config.portMongo + "/sabius";
 logger.info(uri);
@@ -25,8 +25,7 @@ mongoose.Promise = global.Promise;
 var promise = mongoose.connect(uri);
 
 function getCustomGroups(callback) {
-  modelsMongo.customGroups.find({
-  }, function (err, data) {
+  modelsMongo.customGroups.find({}, function(err, data) {
     if (err) {
       callback(err, null); //internal server error
     } else {
@@ -36,87 +35,104 @@ function getCustomGroups(callback) {
 }
 
 function getCustomGroup(groupName, year, callback) {
-  modelsMongo.customGroups.find({
-    "groupName": groupName,
-    "year": year
-  }, function (err, data) {
-    if (err) {
-      callback(err, null); //internal server error
-    } else {
-      if (data.length > 0) {
-        callback(null, data); //get group
+  modelsMongo.customGroups.find(
+    {
+      groupName: groupName,
+      year: year
+    },
+    function(err, data) {
+      if (err) {
+        callback(err, null); //internal server error
       } else {
-        callback(null, null); //not found
+        if (data.length > 0) {
+          callback(null, data); //get group
+        } else {
+          callback(null, null); //not found
+        }
       }
     }
-  });
+  );
 }
 
 function getCustomGroupByMetadata(metadata, value, callback) {
-  modelsMongo.customGroups.find({
-    [metadata]: value
-  }, function (err, data) {
-    if (err) {
-      callback(err, null); //internal server error
-    } else {
-      if (data.length > 0) {
-        callback(null, data); //get group
+  modelsMongo.customGroups.find(
+    {
+      [metadata]: value
+    },
+    function(err, data) {
+      if (err) {
+        callback(err, null); //internal server error
       } else {
-        callback(null, null); //not found
+        if (data.length > 0) {
+          callback(null, data); //get group
+        } else {
+          callback(null, null); //not found
+        }
       }
     }
-  });
+  );
 }
 
 function insertCustomGroup(newData, callback) {
   var groupName = newData[0].groupName;
   var year = newData[0].year;
-  modelsMongo.customGroups.find({
-    "groupName": groupName,
-    "year": year
-  }, function (err, data) {
-    if (err) {
-      callback(err, null); //internal server error
-    } else {
-      if (data.length > 0) {
-        callback(null, data); //conflict
+  modelsMongo.customGroups.find(
+    {
+      groupName: groupName,
+      year: year
+    },
+    function(err, data) {
+      if (err) {
+        callback(err, null); //internal server error
       } else {
-        modelsMongo.customGroups.collection.insert(newData, {
-          ordered: true
-        }, function (err) {
-          if (err) {
-            callback(err, null); //internal server error
-          } else {
-            callback(null, null); //created
-          }
-        });
+        if (data.length > 0) {
+          callback(null, data); //conflict
+        } else {
+          modelsMongo.customGroups.collection.insert(
+            newData,
+            {
+              ordered: true
+            },
+            function(err) {
+              if (err) {
+                callback(err, null); //internal server error
+              } else {
+                callback(null, null); //created
+              }
+            }
+          );
+        }
       }
     }
-  })
+  );
 }
 
 function deleteCustomGroup(groupName, year, callback) {
-  modelsMongo.customGroups.find({
-    "groupName": groupName,
-    "year": year
-  }, function (err, data) {
-    if (err) {
-      callback(err, null); //internal server error
-    } else if (data.length == 0) {
-      callback(null, null); //not found
-    } else {
-      modelsMongo.customGroups.remove({
-        "groupName": groupName,
-        "year": year
-      }, function (err, result) {
-        if (err) {
-          callback(err, null); //internal server error
-        } else {
-          callback(null, result); //deleted
-        }
-      });
+  modelsMongo.customGroups.find(
+    {
+      groupName: groupName,
+      year: year
+    },
+    function(err, data) {
+      if (err) {
+        callback(err, null); //internal server error
+      } else if (data.length == 0) {
+        callback(null, null); //not found
+      } else {
+        modelsMongo.customGroups.remove(
+          {
+            groupName: groupName,
+            year: year
+          },
+          function(err, result) {
+            if (err) {
+              callback(err, null); //internal server error
+            } else {
+              callback(null, result); //deleted
+            }
+          }
+        );
+      }
     }
-  });
+  );
 }
-
-

@@ -14,8 +14,8 @@ var methodOverride = require("method-override");
 var compression = require("compression");
 var jsyaml = require("js-yaml");
 
-var config = require("./config/config");
-var logger = require("./config/logConfig");
+var config = require("./configurations/config");
+var logger = require("./logger/logger");
 
 // ####### EXPRESS INITIALIZATION #######
 var app = express();
@@ -49,7 +49,7 @@ app.options("/*", (req, res, next) => {
   return res.sendStatus(200);
 });
 
-var serverPort = process.env.PORT || config.port;
+var serverPort = process.env.PORT || config.server.port;
 
 // swaggerRouter configuration
 var options = {
