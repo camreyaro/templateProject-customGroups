@@ -2,7 +2,18 @@
 swagger: "2.0"
 info:
   description: >-
-   <a target="_blank" href="https://documenter.getpostman.com/view/3733329/groupsdata/RVfwiWGw">Postman Documentation</a>
+    <div class="postman-run-button"
+    data-postman-action="collection/import"
+    data-postman-var-1="c3d1fba63cf14cdfeb06"></div>
+    <script type="text/javascript">
+      (function (p,o,s,t,m,a,n) {
+        !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+        !o.getElementById(s+t) && o.getElementsByTagName("head")[0].appendChild((
+          (n = o.createElement("script")),
+          (n.id = s+t), (n.async = 1), (n.src = m), n
+        ));
+      }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
+      </script>
   version: "1.0.0"
   title: "Swagger custom-groups.sabius-alpha"
   termsOfService: "www.isa.us.es"
@@ -13,10 +24,10 @@ info:
   license:
     name: "MIT"
     url: "http://opensource.org/licenses/MIT"
-host: "custom-groups.data.sabius-alpha.services.governify.io"
+host: "localhost:8080"
 basePath: "/api/v1"
 schemes:
-- "https"
+- "http"
 consumes:
 - "application/json"
 produces:
@@ -28,15 +39,7 @@ paths:
       - "custom-groups"
       description: "Returns all custom groups"
       operationId: "getCustomGroups"
-      parameters: 
-      - name: "meta"
-        in: "query"
-        description: "Values of metadata"
-        required: false
-        type: "array"
-        items:
-          type: "string"
-        collectionFormat: "csv"     
+      parameters: []
       responses:
         200:
           description: "Custom Group response"
@@ -45,10 +48,6 @@ paths:
             title: "CustomGroups"
             items:
               $ref: "#/definitions/CustomGroups"
-        400:
-          description: "Bad request"
-        404:
-          description: "Not found"              
         500:
           description: "Internal Server Error"
       x-swagger-router-controller: "CustomGroups"
@@ -135,6 +134,36 @@ paths:
         404:
           description: "Not found"
       x-swagger-router-controller: "CustomGroups"
+  /custom-groups/{metaDataField}:
+    get:
+      tags:
+      - "custom-groups"
+      description: "Return an existing custom group by metadata"
+      operationId: "getCustomGroupByMetadata"
+      parameters:
+      - name: "metaDataField"
+        in: "path"
+        description: "Name of metadata field"
+        required: true
+        type: "string"
+      - name: "value"
+        in: "query"
+        description: "Value of metadata"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Custom Group response"
+          schema:
+            type: "array"
+            title: "CustomGroups"
+            items:
+              $ref: "#/definitions/CustomGroups"
+        404:
+          description: "Not found"
+        500:
+          description: "Database error"
+      x-swagger-router-controller: "CustomGroups" 
 definitions:
   CustomGroups:
     type: "object"

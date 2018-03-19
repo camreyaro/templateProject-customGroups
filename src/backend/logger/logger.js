@@ -17,34 +17,33 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
-
-'use strict';
+"use strict";
 
 /**
  * Module dependecies.
  * */
 
-var winston = require('winston');
-var config = require('../configurations/config');
+var winston = require("winston");
+var config = require("../configurations/config");
 
 /**
  * Configure here your custom levels.
  * */
 var customLeves = {
-    levels: {
-        error: 7,
-        warning: 8,
-        custom: 9,
-        info: 12,
-        debug: 13
-    },
-    colors: {
-        error: 'red',
-        warning: 'yellow',
-        custom: 'magenta',
-        info: 'white',
-        debug: 'black'
-    }
+  levels: {
+    error: 7,
+    warning: 8,
+    custom: 9,
+    info: 12,
+    debug: 13
+  },
+  colors: {
+    error: "red",
+    warning: "yellow",
+    custom: "magenta",
+    info: "white",
+    debug: "black"
+  }
 };
 
 winston.emitErrs = true;
@@ -60,7 +59,7 @@ var logger = new winston.Logger({
       json: false,
       tailable: true,
       maxsize: config.log.maxSize,
-      maxFiles: config.log.maxFiles,
+      maxFiles: config.log.maxFiles
     }),
     new winston.transports.Console({
       level: config.loglevel,

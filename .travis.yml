@@ -9,6 +9,9 @@ services:
   - docker
   - mongodb  
 
+before_script:
+  - yarn add grunt-cli && yarn add grunt-mocha-istanbul && npm install newman --global;
+
 script:
   - npm start  &
   - sleep 10 
