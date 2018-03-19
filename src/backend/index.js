@@ -33,7 +33,7 @@ app.use(
   })
 );
 app.use(methodOverride());
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/../frontend"));
 
 if (config.use_cors) {
   logger.info("Adding Access-Control-Allow-Origin: *");
